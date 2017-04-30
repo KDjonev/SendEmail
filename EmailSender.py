@@ -57,20 +57,19 @@ def SendEmail(
     Message.attach(MIMEText(Body, 'plain'))
 
     # Attatch any necessary files
-    if (len(Attatchments) >= 0):
-        for File in Attatchments:
-            Path, Filename = os.path.split(File)
-            if (Path == '' and Filename != ''):
-                Path = '.'
-            FilePath = os.path.join(Path, Filename)
-            if (os.path.isfile(Filename)):
-                Attatchment = CreateAttatchment(FilePath)
+    for File in Attatchments:
+        Path, Filename = os.path.split(File)
+        if (Path == '' and Filename != ''):
+            Path = '.'
+        FilePath = os.path.join(Path, Filename)
+        if (os.path.isfile(Filename)):
+            Attatchment = CreateAttatchment(FilePath)
+            Message.attach(Attatchment)
+        elif ('*' in FilePath):
+            FileList = glob.glob(FilePath)
+            for ExpandedFilePath in FileList:
+                Attatchment = CreateAttatchment(ExpandedFilePath)
                 Message.attach(Attatchment)
-            elif ('*' in FilePath):
-                FileList = glob.glob(FilePath)
-                for ExpandedFilePath in FileList:
-                    Attatchment = CreateAttatchment(ExpandedFilePath)
-                    Message.attach(Attatchment)
 
     MessageText = Message.as_string()
     Server.sendmail(FromAddress, ToAddresses, MessageText)
