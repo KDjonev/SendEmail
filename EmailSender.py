@@ -8,7 +8,7 @@ from email.mime.base import MIMEBase
 from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from EmailOptionsParser import EmailOptionsParser
+from EmailOptions import EmailOptions
 import getpass
 import glob
 import mimetypes
@@ -118,8 +118,9 @@ def CreateAttatchment(FilePath):
 
 if __name__ == '__main__':
 
-    EmailOptions = EmailOptionsParser()
-    EmailOptions.LoadDefaultValues("HaltEmailOptions.eo")
+    EmailOptions = EmailOptions()
+    EmailOptions.LoadOptionsFromXml("HaltEmailOptions.eo")
+    EmailOptions.ParseOptionsFromCommandLine()
     SendEmail(
         EmailOptions.FromAddress,
         EmailOptions.ToAddresses,

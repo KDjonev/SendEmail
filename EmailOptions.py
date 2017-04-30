@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 import sys
 
 
-class EmailOptionsParser:
+class EmailOptions:
 
     FromAddress = ''
     FromAddressPassword = ''
@@ -14,8 +14,8 @@ class EmailOptionsParser:
     Body = ''
     Attatchments = []
 
-    def LoadDefaultValues(self, DefaultValueFile):
-        FileHandler = open(DefaultValueFile).read()
+    def LoadOptionsFromXml(self, OptionsXmlFilename):
+        FileHandler = open(OptionsXmlFilename).read()
         SoupXmlParser = BeautifulSoup(FileHandler, 'xml')
 
         EmailOptionsTag = SoupXmlParser.find('EmailOptions')
@@ -34,7 +34,7 @@ class EmailOptionsParser:
             if (EmailOptionsTag.has_attr('Attatchments')):
                 self.Attatchments = EmailOptionsTag['Attatchments'].split(' ')
 
-    def ParseEmailOptionsParserParser(self):
+    def ParseOptionsFromCommandLine(self):
 
         Parser = ArgumentParser(
             description="Send an e-mail.")
