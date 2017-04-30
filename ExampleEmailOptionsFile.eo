@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<EmailOptions
+  FromAddress = "name@gmail.com"
+  FromAddressPassword = "password (Optional)"
+  ToAddresses = "a@gmail.com b@yahoo.com c@example.edu"
+  Subject = "Sent from Python"
+  Body = "Love, me"
+  Attatchments = "~/blah/foo.txt *.py ..."
+/>
